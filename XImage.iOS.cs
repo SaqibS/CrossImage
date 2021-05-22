@@ -1,4 +1,6 @@
+using System;
 using System.Drawing;
+using CoreGraphics;
 using UIKit;
 
 namespace CrossImage
@@ -20,7 +22,10 @@ namespace CrossImage
 
         public XImage Crop(Rectangle region)
         {
-            return this;
+            nfloat scale = this.image.CurrentScale;
+            var scaledRect = new CGRect(region.X * scale, region.Y * scale, region.Size.Width * scale, region.Size.Height * scale);
+            using CGImage croppedCgImage = image.CGImage.WithImageInRect(scaledRect);
+            return new XImage(UIImage.FromImage(croppedCgImage));
         }
 
         public XImage Rotate(int degrees)

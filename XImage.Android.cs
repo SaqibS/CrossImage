@@ -20,7 +20,7 @@ namespace CrossImage
 
         public XImage Crop(Rectangle region)
         {
-            return this;
+            return new XImage(Bitmap.CreateBitmap(this.image, region.X, region.Y, region.Width, region.Height));
         }
 
         public XImage Rotate(int degrees)
